@@ -25,8 +25,9 @@ Each has its own README with how to run and test it.
 ## The contract
 
 `ArcOrbs` is deployed on Arc Testnet (chain id 5042002) at
-[`0x0e7eee70d68E2b7Cfaf21D51C7D401391c27829b`](https://testnet.arcscan.app/address/0x0e7eee70d68E2b7Cfaf21D51C7D401391c27829b).
-It has no owner and cannot be changed. It has not been audited.
+[`0x0e7eee70d68E2b7Cfaf21D51C7D401391c27829b`](https://explorer.testnet.arc.io/address/0x0e7eee70d68E2b7Cfaf21D51C7D401391c27829b).
+Its source is verified there. It has no owner and cannot be changed, and it has
+not been audited.
 
 ## Licence
 

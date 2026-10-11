@@ -26,7 +26,7 @@ export const arc = defineChain({
 				: ['https://rpc.testnet.arc.network', 'https://rpc.testnet.arc.io']
 		}
 	},
-	blockExplorers: { default: { name: 'Arcscan', url: 'https://testnet.arcscan.app' } },
+	blockExplorers: { default: { name: 'Arc Explorer', url: 'https://explorer.testnet.arc.io' } },
 	contracts: { multicall3: { address: '0xcA11bde05977b3631167028862bE2a173976CA11' } },
 	testnet: true
 });

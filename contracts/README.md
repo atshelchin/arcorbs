@@ -46,6 +46,13 @@ forge script script/Deploy.s.sol --rpc-url arc_testnet --broadcast --account <ke
 The site carries the deployed address in `web/src/lib/arc.ts`; a new build of
 the contract goes there, and into `erc7730/arc-orbs.json`.
 
+Then publish the source on the explorer, which needs no API key:
+
+```sh
+forge verify-contract <address> src/ArcOrbs.sol:ArcOrbs --chain-id 5042002 \
+  --verifier blockscout --verifier-url https://explorer.testnet.arc.io/api/ --watch
+```
+
 The contract names the game's website in `WEBSITE`, and a contract cannot be
 changed. Whoever holds that domain is who the contract points people to, for as
 long as the contract is in use.
