@@ -93,7 +93,12 @@
 	<p>
 		{BRAND} has no sign-up and asks for no personal details. What you do happens on a public blockchain:
 		the account you play from, the drops it funded and what it pulled are visible to anyone, on this website
-		and elsewhere, and cannot be removed. Like any website, the servers that deliver this one see the
+		and elsewhere, and cannot be removed.
+	</p>
+	<p>
+		The website counts its visits through a statistics service at tj.appsdata.org: which pages are
+		opened and from what link, on what kind of device and browser, and roughly where in the world.
+		Its script sets no cookies. Like any website, the servers that deliver this one also see the
 		address your device connects from.
 	</p>
 

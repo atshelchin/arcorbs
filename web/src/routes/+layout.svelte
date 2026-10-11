@@ -4,6 +4,7 @@
 	import '@fontsource/ibm-plex-mono/500.css';
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import { dev } from '$app/env';
 	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
 	import { BRAND, MAKER_ON_X } from '#lib/brand.ts';
@@ -48,6 +49,10 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content={MAKER_ON_X} />
 	<link rel="icon" href={favicon} />
+	<!-- Counts visits. Left out of development, so a local run is not counted as one. -->
+	{#if !dev}
+		<script src="https://tj.appsdata.org/api/script.js" data-site-id="765b6fb7e95e" defer></script>
+	{/if}
 </svelte:head>
 
 <Header />
