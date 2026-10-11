@@ -46,6 +46,16 @@ not money, and nothing here should make it look like money.
   account's pull from the chain, so a link cannot claim one that never
   happened. Every card is marked TESTNET.
 
+## Deploy it
+
+The site is a Cloudflare Worker: `bun run build`, then `wrangler deploy`.
+
+When Cloudflare builds it from the repository, give the build the variable
+`BUN_VERSION`, set to the Bun that wrote `bun.lock` (1.4.2 at the time of
+writing). The build image's own Bun is older and cannot read the lockfile, and
+the build stops at `bun install` with "Unknown lockfile version". The build's
+root directory is `web`.
+
 ## Check it
 
 ```sh
