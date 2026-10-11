@@ -1,0 +1,75 @@
+{
+	"context": {
+		"$id": "Arc Orbs",
+		"contract": {
+			"deployments": [
+				{
+					"chainId": 5042002,
+					"address": "0x0e7eee70d68E2b7Cfaf21D51C7D401391c27829b"
+				}
+			]
+		}
+	},
+	"metadata": {
+		"owner": "Arc Orbs",
+		"info": {
+			"url": "https://arcorbs.game3.app"
+		},
+		"contractName": "Arc Orbs"
+	},
+	"display": {
+		"formats": {
+			"create(uint32 prizes, uint256 duration, string note)": {
+				"intent": "Fund a drop",
+				"fields": [
+					{
+						"label": "Pool",
+						"format": "amount",
+						"path": "@.value",
+						"visible": "always"
+					},
+					{
+						"label": "Orbs",
+						"format": "raw",
+						"path": "#.prizes",
+						"visible": "always"
+					},
+					{
+						"label": "Open for",
+						"format": "duration",
+						"path": "#.duration",
+						"visible": "always"
+					},
+					{
+						"label": "Note",
+						"format": "raw",
+						"path": "#.note",
+						"visible": "optional"
+					}
+				]
+			},
+			"draw(uint256 id)": {
+				"intent": "Pull an orb",
+				"fields": [
+					{
+						"label": "Drop",
+						"format": "raw",
+						"path": "#.id",
+						"visible": "always"
+					}
+				]
+			},
+			"refund(uint256 id)": {
+				"intent": "Refund a drop",
+				"fields": [
+					{
+						"label": "Drop",
+						"format": "raw",
+						"path": "#.id",
+						"visible": "always"
+					}
+				]
+			}
+		}
+	}
+}

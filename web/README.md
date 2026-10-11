@@ -1,54 +1,60 @@
-# sv
+# Arc Orbs: the site
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+The site for Arc Orbs, a game for Vela Wallet accounts played on Arc Testnet.
+Someone funds a drop with test USDC; every Vela account pulls one orb from it
+and is paid what it holds in the same transaction. The contract is in
+`../contracts`.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+## Run it
 
 ```sh
-# recreate this project
-bun x sv@1.1.1 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright="demo:yes" sveltekit-adapter="adapter:cloudflare+cfTarget:workers" ai-tools="ide:claude-code+delivery:plugin" --install bun web
+bun install
+bun run dev
 ```
 
-## Adding features
+Nothing needs setting: the site uses the deployed contract and Arc Testnet's
+public nodes. `.env.example` lists the two things that can be pointed
+elsewhere, for a fork or a new build of the contract.
 
-Add features to your project with `sv add`:
+There is one network. The site knows nothing of Arc's mainnet, and amounts are
+written as a number and "test USDC", never with a currency sign: test USDC is
+not money, and nothing here should make it look like money.
+
+## What is where
+
+| Path                       | What it is                                                             |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `src/lib/arc.ts`           | Arc Testnet: chain, nodes, explorer, faucet, the contract's address    |
+| `src/lib/wallet.svelte.ts` | Wallet discovery (EIP-6963, then `window.ethereum`) and the connection |
+| `src/lib/orbs.ts`          | Reads from the contract, and the three things an account can do        |
+| `src/lib/stage/Stage.ts`   | The three.js scene                                                     |
+| `src/lib/server/card/`     | The picture a shared link unfolds into                                 |
+| `src/routes/`              | The pages: home, `create`, `drop/[id]`, `terms`                        |
+
+## Things that are easy to get wrong
+
+- **Who may play is decided by the contract**, not by the site. The site only
+  explains. Any wallet can connect; an account that is not a Vela account sees
+  the drops and is told why it cannot pull.
+- **A Vela account has no code until its first transaction.** The site cannot
+  ask the contract about such an account, so it goes by the wallet that is
+  connected and lets the contract decide when the pull lands.
+- **A pull is proven by its event, not by the receipt's status.** Vela sends a
+  user operation, and one that reverts still lands in a successful transaction.
+- **Share cards only carry facts that cannot change.** The apps that show a
+  card keep their copy for days. A card for `?by=<account>` reads that
+  account's pull from the chain, so a link cannot claim one that never
+  happened. Every card is marked TESTNET.
+
+## Check it
 
 ```sh
-npx sv add
+bun run check      # types
+bun run lint       # prettier and eslint
+bun run test:unit  # vitest: pure logic in node, components in a browser
+bun run build      # the Cloudflare Worker
 ```
 
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
+Do not run a second dev server from this directory with other settings while
+one is up: both write the same generated files under `.svelte-kit`, and the
+first starts reading the second's settings. Copy the directory and run there.

@@ -12,7 +12,10 @@ declare global {
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
-		// interface PageState {}
+		interface PageState {
+			/** Set on arriving at a drop straight from funding it. */
+			funded?: boolean;
+		}
 	}
 }
 

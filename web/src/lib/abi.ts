@@ -1,0 +1,30 @@
+import { parseAbi } from 'viem';
+
+export const orbsAbi = parseAbi([
+	'struct Drop { address creator; uint64 expiresAt; uint32 prizes; uint96 pool; uint96 remaining; uint32 drawn; address luckiest; uint96 best; string note; }',
+	'struct Draw { address player; uint96 amount; }',
+	'function create(uint32 prizes, uint256 duration, string note) payable returns (uint256 id)',
+	'function draw(uint256 id) returns (uint256 amount)',
+	'function refund(uint256 id)',
+	'function isVelaWallet(address account) view returns (bool)',
+	'function getDrop(uint256 id) view returns (Drop)',
+	'function getDrops(uint256 offset, uint256 limit) view returns (Drop[] page, uint256 total)',
+	'function getDraws(uint256 id, uint256 offset, uint256 limit) view returns (Draw[] page)',
+	'function prizeOf(uint256 id, address player) view returns (uint256)',
+	'event DropCreated(uint256 indexed id, address indexed creator, uint256 pool, uint32 prizes, uint64 expiresAt, string note)',
+	'event Drawn(uint256 indexed id, address indexed player, uint256 amount, uint32 left)',
+	'event Refunded(uint256 indexed id, address indexed creator, uint256 amount)',
+	'error NotVelaWallet()',
+	'error NoSuchDrop()',
+	'error BadPrizeCount()',
+	'error BadPool()',
+	'error BadDuration()',
+	'error NoteTooLong()',
+	'error DropExpired()',
+	'error DropEmpty()',
+	'error AlreadyDrawn()',
+	'error NotCreator()',
+	'error NotExpiredYet()',
+	'error NothingToRefund()',
+	'error TransferFailed()'
+]);
